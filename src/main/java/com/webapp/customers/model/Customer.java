@@ -1,18 +1,20 @@
 package com.webapp.customers.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
+@Entity
 public class Customer {
+    @Id
+    @GeneratedValue
     private int id;
     private String firstname;
     private String lastname;
     private String dateOfBirth;
     private String licenseNumber;
 
-    public Customer(int id, String firstname, String lastname, String dateOfBirth, String licenseNumber) {
-        this.id = id;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.dateOfBirth = dateOfBirth;
-        this.licenseNumber = licenseNumber;
+    public Customer() {
     }
 
     public int getId() {

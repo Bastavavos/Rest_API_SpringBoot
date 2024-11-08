@@ -1,7 +1,7 @@
-package com.webapp.customers.service;
+package com.webapp.user.service;
 
-import com.webapp.customers.dao.CustomerDao;
-import com.webapp.customers.model.Customer;
+import com.webapp.user.dao.UserDao;
+import com.webapp.user.model.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -10,34 +10,34 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @Service
-public class CustomerService {
+public class UserService {
 
-    CustomerDao dao;
+    UserDao dao;
 
-    public CustomerService(CustomerDao dao) {
+    public UserService(UserDao dao) {
         this.dao = dao;
     }
 
-    public List<Customer> getAll() {
+    public List<User> getAll() {
         return dao.findAll();
     }
 
-    public Customer getById(int id) {
+    public User getById(int id) {
         return dao.findById(id);
     }
 
-    public Customer createCustomer(Customer customer) {
-        checkLicense(customer.getLicenseNumber());
-        return dao.save(customer);
+    public User createUser(User User) {
+        checkLicense(User.getLicenseNumber());
+        return dao.save(User);
     }
 
-    public Customer updateCustomer(Customer customer) {
-        checkLicense(customer.getLicenseNumber());
-        return dao.save(customer);
+    public User updateUser(User User) {
+        checkLicense(User.getLicenseNumber());
+        return dao.save(User);
     }
 
-    public void deleteCustomer(Customer customer) {
-        dao.delete(customer);
+    public void deleteUser(User User) {
+        dao.delete(User);
     }
 
     public void deleteAll(){
@@ -52,7 +52,7 @@ public class CustomerService {
         }
 
         RestTemplate restTemplate = new RestTemplate();
-        Boolean isValid = restTemplate.getForObject("http://localhost:8081/licenses/" + licenseNumber, Boolean.class);
+        Boolean isValid = restTemplate.getForObject("http://192.168.1.253:8089/licenses/" + licenseNumber, Boolean.class);
         if (isValid == null || !isValid ) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "400 - Invalid license"

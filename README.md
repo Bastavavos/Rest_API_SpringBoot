@@ -60,7 +60,7 @@ Par conséquent, les composants peuvent représenter n'importe quel objet de l'a
 > Implémentez @ConditionalOnProperty pour des conditions simples
 > - Pour des applications efficaces utilisant Spring, l'utilisation de @ConditionalOnProperty activera ou désactivera les configurations en fonction de la valeur de la propriété. Cela rendra votre travail gérable et configurera vos applications en fonction de facteurs externes.
 
-> Intégrer les tests avec ComponentScan
+> Intégrer les tests avec @ComponentScan
 > - L'utilisation de @ComponentScan dans les tests d'intégration permet de tirer parti de puissantes annotations. En outre, cela garantit que votre test s'exécute avec précision en fonction du comportement de votre application et reflète les problèmes potentiels qui peuvent apparaître pendant l'exécution.
 
 > Utilisez @ControllerAdvice pour la gestion globale des exceptions

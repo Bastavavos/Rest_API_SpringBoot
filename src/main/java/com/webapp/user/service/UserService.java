@@ -2,6 +2,7 @@ package com.webapp.user.service;
 
 import com.webapp.user.dao.UserDao;
 import com.webapp.user.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -13,17 +14,24 @@ import java.util.List;
 public class UserService {
 
     UserDao dao;
-
-    public UserService(UserDao dao) {
-        this.dao = dao;
-    }
-
+    private final RestTemplate restTemplate;
     public List<User> getAll() {
         return dao.findAll();
     }
-
     public User getById(int id) {
         return dao.findById(id);
+    }
+    public void deleteUser(User User) {
+        dao.delete(User);
+    }
+    public void deleteAll(){
+        dao.deleteAll();
+    }
+
+    @Autowired
+    public UserService(UserDao userDao, RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+        this.dao = userDao;
     }
 
     public User createUser(User User) {
@@ -36,14 +44,6 @@ public class UserService {
         return dao.save(User);
     }
 
-    public void deleteUser(User User) {
-        dao.delete(User);
-    }
-
-    public void deleteAll(){
-        dao.deleteAll();
-    }
-
     public void checkLicense(String licenseNumber){
         if (!licenseNumber.matches("^[a-zA-Z0-9]{9}$")) {
             throw new ResponseStatusException(
@@ -51,8 +51,7 @@ public class UserService {
             );
         }
 
-        RestTemplate restTemplate = new RestTemplate();
-        Boolean isValid = restTemplate.getForObject("http://192.168.1.253:8089/licenses/" + licenseNumber, Boolean.class);
+        Boolean isValid = restTemplate.getForObject("http://LICENSE/licenses/" + licenseNumber, Boolean.class);
         if (isValid == null || !isValid ) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "400 - Invalid license"

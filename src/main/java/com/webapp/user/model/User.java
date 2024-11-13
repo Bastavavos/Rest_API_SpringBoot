@@ -27,7 +27,7 @@ public class User {
                 "id=" + id +
                 ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
-                ", dateOfBirth='" + age + '\'' +
+                ", age='" + age + '\'' +
                 ", licenseNumber='" + licenseNumber + '\'' +
                 '}';
     }
